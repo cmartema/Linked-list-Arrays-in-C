@@ -16,7 +16,7 @@ linked_list* create_linked_list() {
 
 bool insert_in_order(
 		linked_list *list, void *data, int (*cmp)(const void*, const void*)) {
-	if (data == NULL || cmp == NULL) {
+	if (list == NULL || data == NULL || cmp == NULL) {
 		return false;
 	}
 	node *new_node = malloc(sizeof(node));
@@ -26,31 +26,36 @@ bool insert_in_order(
 	new_node->data = data;
 	new_node->prev = NULL;
 	new_node->next = NULL;
-	if (list == NULL) {
-		free(new_node);
-		return false;
-	}
+	
+	//Case 1: Empty list
 	if (list->head == NULL) {
 		list->head = new_node;
 		list->tail = new_node;
 		list->size = 1;
 		return true;
 	}
-	node *cur = list->head;
-	while (cur != NULL && cmp(cur->data, data) < 0) {
-		cur = cur->next;
-	}
-	if (cur == NULL) {
-		new_node->prev = list->tail;
-		list->tail->next = new_node;
-		list->tail = new_node;
-	} else if (cur == list->head) {
+	
+	//Case 2: Insert at the head of the list 
+	if (cmp(new_node->data, list->head->data) < 0) {
 		new_node->next = list->head;
 		list->head->prev = new_node;
 		list->head = new_node;
-	} else {
-		new_node->prev = cur->prev;
+		list->size++;
+		return true;
+	}
+
+	//Case 3: Insert in the tail or middle of the list
+	node *cur = list->head;
+	while (cur != NULL && cmp(cur->data, new_node->data) < 0) {
+		cur = cur->next;
+	}
+	if (cur == NULL) { 
+		new_node->prev = list->tail;
+		list->tail->next = new_node;
+		list->tail = new_node;
+	} else { 
 		new_node->next = cur;
+		new_node->prev = cur->prev;
 		cur->prev->next = new_node;
 		cur->prev = new_node;
 	}
