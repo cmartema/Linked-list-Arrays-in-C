@@ -1,6 +1,8 @@
 #include <stddef.h>
 #include "mystring.h"
 
+#include <stdio.h>
+
 /**
  * This function calculates the length of a character array passed in,
  * returning the length as a size_t. Calculation must be done via pointer
@@ -44,24 +46,18 @@ char *my_strcpy(char *dst, char *src){
 		return NULL; 
 	}
 
-	if(my_strlen(dst) > my_strlen(src) + 1){
-		 char *s = src;
-	         char *d = dst;
+	char *s = src;
+	char *d = dst;
 
-	        while(*s){
-                       *d = *s;
-                        s++;
-	                d++;
-         	}
+	while(*s != '\0'){
+		*d = *s;
+                s++;
+	        d++;
+         }
+	
+	*d = '\0';
 
-        	*d = '\0';
-
-	        return d;
-
-	}
-	else{
-		return NULL;
-	}
+	return dst;
 
 }
 
@@ -78,8 +74,10 @@ void my_strlower(char *src){
 	
 	char *s = src; 
 
-	while(*s){
-		*s = tolower(*s);
+	while(*s != '\0'){
+		if(*s >= 'A' && *s <= 'Z'){
+			*s = tolower(*s);
+		}
 		s++; 
 	}
 }

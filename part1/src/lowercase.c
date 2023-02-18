@@ -25,18 +25,19 @@ void display_strings(char **strings) {
 
 static char **copy_args_lowercase(int argc, char **argv) {
 
-	char **copy = (char **)malloc(argc);
-       	for(int i = 0; i < argc; i++){
-		copy[i] = (char *)malloc(20 * sizeof(char)); 
-	}
+	char **copy = (char **)malloc(argc * sizeof(char *));
 
-	char *c = (char *)copy; 
 	for(int i = 1; i < argc; i++){
-		c = my_strcpy(*copy, argv[i]);
-		my_strlower(c); 
-		c++;	
-	}
-    return copy;
+		//printf("argv[i] = %s\n", argv[i]); 
+		copy[i] = (char *)malloc(100 * sizeof(char));
+		copy[i] = my_strcpy(copy[i], argv[i]); 
+                //printf("copy[i] = %s\n", copy[i]);
+		my_strlower(copy[i]); 
+		//printf("copy[i] = %s\n", copy[i]);
+
+	}    
+	
+	return copy;
 }
 
 static void free_copy(char **copy) {
@@ -49,14 +50,6 @@ static void free_copy(char **copy) {
 	}
 
 	free(copy); 
-	/*
-	char *c = (char *)copy; 
-	while(c){
-		free(*c); 
-		c++;
-	}
-	return;
-	*/
 }
 
 
@@ -64,6 +57,7 @@ static void free_copy(char **copy) {
  * DO NOT MODIFY main()
  */
 int main(int argc, char **argv) {
+
     char **copy;
     copy = copy_args_lowercase(argc, argv);
 
