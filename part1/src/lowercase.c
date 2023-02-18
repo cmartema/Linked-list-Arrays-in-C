@@ -31,8 +31,10 @@ static char **copy_args_lowercase(int argc, char **argv) {
 		//printf("argv[i] = %s\n", argv[i]); 
 		copy[i] = (char *)malloc(100 * sizeof(char));
 		copy[i] = my_strcpy(copy[i], argv[i]); 
-                //printf("copy[i] = %s\n", copy[i]);
+                
+		//printf("copy[i] = %s\n", copy[i]);
 		my_strlower(copy[i]); 
+		
 		//printf("copy[i] = %s\n", copy[i]);
 
 	}    
