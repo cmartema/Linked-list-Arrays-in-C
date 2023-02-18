@@ -79,7 +79,7 @@ void print_list(linked_list *list, void (*print_function)(void*)) {
     list->head != NULL ? print_function(list->head->data) :
                          (void)printf("NULL");
     printf(", tail->data: ");
-    list->tail != NULL ? print_function(list->tail->data) :
+    list->tail != NULL ? print_function(list->tail->data):
                          (void)printf("NULL");
     printf("}\n\n");
 }
@@ -89,7 +89,7 @@ void free_list(linked_list *list, void (*free_data)(void*)) {
 		return;
 	}
 	node *cur = list->tail;
-	while (cur != list->head->prev) {
+	while (cur != NULL) {
 		node *prev_node = cur->prev;
 		if (free_data != NULL) {
 			free_data(cur->data);
@@ -97,5 +97,6 @@ void free_list(linked_list *list, void (*free_data)(void*)) {
 		free(cur);
 		cur = prev_node;
 	}
+	list->size = 0;
 	free(list);
 }
