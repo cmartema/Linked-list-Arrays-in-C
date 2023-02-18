@@ -35,6 +35,8 @@ static char **copy_args_lowercase(int argc, char **argv) {
 		j++; 
 	}    
  	
+	copy[argc-1] = NULL; 
+
 	return copy;
 }
 
