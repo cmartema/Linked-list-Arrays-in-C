@@ -11,11 +11,12 @@ void display_list(void *data) {
 }
 
 int main(int argc, char **argv) {
-    linked_list *list = create_linked_list();
-    for (int i = 1; i <= argc; i++) {
-	    print_list(list, display_list);
-	    insert_in_order(list, argv[i], cmp);
-    } 
-    free_list(list, free);
-    return EXIT_SUCCESS;
+	linked_list *list = create_linked_list();
+	print_list(list, display_list);	
+	for (int i = 1; i <  argc; i++) {
+		insert_in_order(list, argv[i], cmp);
+		print_list(list, display_list);	
+    	} 
+	free_list(list, NULL);
+	return EXIT_SUCCESS;
 }
