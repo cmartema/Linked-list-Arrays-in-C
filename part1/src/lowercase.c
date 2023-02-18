@@ -28,27 +28,23 @@ static char **copy_args_lowercase(int argc, char **argv) {
 	char **copy = (char **)malloc(argc * sizeof(char *));
 	int j = 0; 
 	for(int i = 1; i < argc; i++){
-		//printf("argv[%d] = %s\n", i, argv[i]); 
-		copy[j] = (char *)malloc(100 * sizeof(char));
-		copy[j] = my_strcpy(copy[j], argv[i]); 
-                
-		//printf("copy[%d] = %s\n", j, copy[j]);
+		copy[j] = (char *)malloc((my_strlen(argv[i])+1) * sizeof(char *));
+		copy[j] = my_strcpy(copy[j], argv[i]);
 		my_strlower(copy[j]); 
 		
-		//printf("copy[%d] = %s\n", j, copy[j]);
 		j++; 
 	}    
-	
+ 	
 	return copy;
 }
 
 static void free_copy(char **copy) {
+ 
+	int i = 0; 
+	while(copy[i] != NULL){
 
-	size_t len = my_strlen(*copy); 
-
-	for(int i = 0; i < len; i++){
-
-		free((void *)copy[i]); 
+		free(copy[i]);
+	        i++;
 	}
 
 	free(copy); 
