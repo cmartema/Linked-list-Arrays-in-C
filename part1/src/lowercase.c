@@ -26,17 +26,17 @@ void display_strings(char **strings) {
 static char **copy_args_lowercase(int argc, char **argv) {
 
 	char **copy = (char **)malloc(argc * sizeof(char *));
-
+	int j = 0; 
 	for(int i = 1; i < argc; i++){
-		//printf("argv[i] = %s\n", argv[i]); 
-		copy[i] = (char *)malloc(100 * sizeof(char));
-		copy[i] = my_strcpy(copy[i], argv[i]); 
+		//printf("argv[%d] = %s\n", i, argv[i]); 
+		copy[j] = (char *)malloc(100 * sizeof(char));
+		copy[j] = my_strcpy(copy[j], argv[i]); 
                 
-		//printf("copy[i] = %s\n", copy[i]);
-		my_strlower(copy[i]); 
+		//printf("copy[%d] = %s\n", j, copy[j]);
+		my_strlower(copy[j]); 
 		
-		//printf("copy[i] = %s\n", copy[i]);
-
+		//printf("copy[%d] = %s\n", j, copy[j]);
+		j++; 
 	}    
 	
 	return copy;
