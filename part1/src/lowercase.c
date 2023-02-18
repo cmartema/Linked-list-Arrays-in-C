@@ -24,11 +24,39 @@ void display_strings(char **strings) {
 }
 
 static char **copy_args_lowercase(int argc, char **argv) {
-    return NULL;
+
+	char **copy = (char **)malloc(argc);
+       	for(int i = 0; i < argc; i++){
+		copy[i] = (char *)malloc(20 * sizeof(char)); 
+	}
+
+	char *c = (char *)copy; 
+	for(int i = 1; i < argc; i++){
+		c = my_strcpy(*copy, argv[i]);
+		my_strlower(c); 
+		c++;	
+	}
+    return copy;
 }
 
 static void free_copy(char **copy) {
-    return;
+
+	size_t len = my_strlen(*copy); 
+
+	for(int i = 0; i < len; i++){
+
+		free((void *)copy[i]); 
+	}
+
+	free(copy); 
+	/*
+	char *c = (char *)copy; 
+	while(c){
+		free(*c); 
+		c++;
+	}
+	return;
+	*/
 }
 
 
