@@ -19,6 +19,7 @@ bool insert_in_order(
 	if (list == NULL || data == NULL || cmp == NULL) {
 		return false;
 	}
+
 	node *new_node = malloc(sizeof(node));
 	if (new_node == NULL) {
 		return false;
@@ -26,12 +27,12 @@ bool insert_in_order(
 	new_node->data = data;
 	new_node->prev = NULL;
 	new_node->next = NULL;
-	
+
 	//Case 1: Empty list
 	if (list->head == NULL) {
 		list->head = new_node;
 		list->tail = new_node;
-		list->size = 1;
+		list->size++;	
 		return true;
 	}
 	
@@ -88,7 +89,7 @@ void free_list(linked_list *list, void (*free_data)(void*)) {
 		return;
 	}
 	node *cur = list->tail;
-	while (cur != NULL) {
+	while (cur != list->head->prev) {
 		node *prev_node = cur->prev;
 		if (free_data != NULL) {
 			free_data(cur->data);
